@@ -1,0 +1,17 @@
+{
+  "name": "solpact",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "apps/mobile"
+  ],
+  "scripts": {
+    "convex:dev": "npx convex dev",
+    "convex:deploy": "npx convex deploy",
+    "mobile:dev": "cd apps/mobile && npx expo start",
+    "mobile:android": "cd apps/mobile && npx expo run:android"
+  },
+  "devDependencies": {
+    "convex": "^1.21.0"
+  }
+}

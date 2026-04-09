@@ -1,0 +1,38 @@
+# Dependencies
+node_modules/
+.npm/
+
+# Convex
+convex/_generated/
+.env.local
+.env.*.local
+
+# Expo / React Native
+.expo/
+dist/
+web-build/
+android/
+ios/
+*.jks
+*.p12
+*.key
+*.mobileprovision
+
+# Solana / Anchor
+target/
+**/*.so
+**/*.keypair.json
+.anchor/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Misc
+.env
+.vercel
+node_modules/
+.venv/
+env/
+venv/
+lib/
