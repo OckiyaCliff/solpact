@@ -1,7 +1,7 @@
 use anchor_lang::prelude::*;
 use anchor_lang::system_program::{transfer, Transfer};
 
-declare_id!("Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS");
+declare_id!("2gCZPc24gWVsxzzaudiYydjQrrMu54cCFo4ZSqtkgoc4");
 
 #[program]
 pub mod solpact {
@@ -66,8 +66,8 @@ pub mod solpact {
         require!(campaign.state == 2, SolpactError::InvalidState);
         
         let amount = campaign.raised_amount;
-        let fee = (amount as f128 * 0.025) as u64; // 2.5% fee
-        let net_amount = amount - fee;
+        let fee = amount.checked_mul(25).unwrap().checked_div(1000).unwrap(); // 2.5% fee
+        let net_amount = amount.checked_sub(fee).unwrap();
 
         // Transfer fee to treasury (simplified as authority for now or specific treasury PDA)
         let seeds = &[
