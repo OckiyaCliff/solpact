@@ -12,6 +12,12 @@ SolPact is a mobile-first, Solana-native crowdfunding platform designed to empow
 - **Wallet**: Solana Mobile Wallet Adapter (MWA) with Solflare/Phantom support
 - **Infrastructure**: Quicknode RPC + Convex HTTP Actions
 
+## 🚀 Live on Devnet
+- **Program ID**: `2gCZPc24gWVsxzzaudiYydjQrrMu54cCFo4ZSqtkgoc4`
+- **Wallet Address**: `9uWPELiCiZEEZP5mLgmupEC5XbbesKWoqkd5rmQvbYFc`
+- **Status**: **LIVE & VERIFIED** 🚀
+- **Transaction Signature**: `24qkkfRRruRdGoSKuJrkcSz8NUzHoXBeZRqwFwq1fCmHxfp2qK4xrSbqsHsZp2ZYvkXLDm5yw6F9vtcP4RhMQLcU`
+
 ## 📂 Project Structure
 ```bash
 .
