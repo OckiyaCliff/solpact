@@ -72,4 +72,4 @@ SolPact is a mobile-first, Solana-native crowdfunding platform designed to empow
 - [ ] Localized Reputation System for hosts
 
 ---
-Built with ❤️ for the Solana Nigeria Hackathon.
+Built with ❤️ by the SolPact Team.
