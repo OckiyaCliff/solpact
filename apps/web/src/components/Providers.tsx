@@ -11,9 +11,10 @@ import {
 import { clusterApiUrl } from "@solana/web3.js";
 
 // Default styles that can be overridden by your app
-require("@solana/wallet-adapter-react-ui/styles.css");
+import "@solana/wallet-adapter-react-ui/styles.css";
 
-const convex = new ConvexReactClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
+const CONVEX_URL = process.env.NEXT_PUBLIC_CONVEX_URL || process.env.EXPO_PUBLIC_CONVEX_URL || "";
+const convex = new ConvexReactClient(CONVEX_URL);
 
 export function Providers({ children }: { children: ReactNode }) {
     // The network can be set to 'devnet', 'testnet', or 'mainnet-beta'.

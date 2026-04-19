@@ -2,49 +2,78 @@
 
 import { Navbar } from "@/components/Navbar";
 import { motion } from "framer-motion";
-import { ArrowRight, Shield, Zap, Heart } from "lucide-react";
+import { ArrowRight, Shield, Zap, Heart, Plus } from "lucide-react";
 import { useQuery } from "convex/react";
 import { api } from "../../../../convex/_generated/api";
 import { Campaign } from "@/types";
 import Link from "next/link";
+import DotField from "@/components/DotField";
 
 export default function Home() {
   const campaigns = useQuery(api.campaigns.listActiveCampaigns, {});
 
   return (
-    <main className="flex-1 flex flex-col">
+    <main className="flex-1 flex flex-col bg-[#0A0A0B] text-white">
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 px-6 overflow-hidden">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-[#9945FF] opacity-5 blur-[120px] rounded-full -z-10" />
+      <br />
+      <br />
+      <br />
+      <section className="relative min-h-[90vh] flex items-center justify-center px-6 overflow-hidden">
+        {/* DotField Background */}
+        <div className="absolute inset-0 z-0">
+          <DotField
+            dotRadius={1.4}
+            dotSpacing={24}
+            bulgeStrength={80}
+            glowRadius={350}
+            sparkle={true}
+            gradientFrom="rgba(20, 241, 149, 0.4)"
+            gradientTo="rgba(153, 69, 255, 0.2)"
+            glowColor="rgba(20, 241, 149, 0.05)"
+          />
+        </div>
 
-        <div className="max-w-7xl mx-auto text-center">
+        <div className="relative z-10 max-w-7xl mx-auto text-center">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="flex flex-col items-center"
           >
-            <h1 className="text-6xl md:text-8xl font-bold tracking-tighter mb-8 max-w-4xl mx-auto">
-              Empowering communities, <br />
-              <span className="gradient-text">one pact at a time.</span>
+            {/* Tag/Badge */}
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 mb-8 backdrop-blur-md">
+              <span className="bg-[#14F195] text-black text-[10px] font-black px-2 py-0.5 rounded-full uppercase tracking-tighter">NEW</span>
+              <span className="text-sm font-medium text-neutral-400">Just shipped SolPact v2.0</span>
+            </div>
+
+            <h1 className="text-6xl md:text-8xl font-black tracking-tighter mb-8 leading-[0.9] max-w-5xl mx-auto">
+              Empowering communities <br />
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#14F195] to-[#9945FF]">
+                one pact at a time.
+              </span>
             </h1>
-            <p className="text-xl text-neutral-400 mb-10 max-w-2xl mx-auto leading-relaxed">
-              SolPact is a transparent, Solana-native crowdfunding platform tailored for Nigerian projects.
-              Pure trust, trustless custody, and real-world impact.
+
+            <p className="text-xl text-neutral-400 mb-12 max-w-2xl mx-auto leading-relaxed font-medium">
+              A transparent, Solana-native crowdfunding platform tailored for Nigerian impact.
+              Pure trust, trustless custody, and real-world results.
             </p>
 
-            <div className="flex flex-wrap justify-center gap-4">
-              <Link href="/create" className="bg-[#14F195] text-black px-8 py-4 rounded-full font-bold text-lg flex items-center gap-2 hover:bg-[#00FFA3] transition-all group">
+            <div className="flex flex-col sm:flex-row items-center gap-4">
+              <Link href="/create" className="group bg-white text-black px-10 py-4 rounded-full font-bold text-lg flex items-center gap-2 hover:bg-[#14F195] transition-all duration-300">
                 Start a Campaign
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                <Plus className="w-5 h-5 group-hover:rotate-180 transition-transform duration-500" />
               </Link>
-              <Link href="/explore" className="glass px-8 py-4 rounded-full font-bold text-lg hover:bg-white/5 transition-all">
-                Browse Projects
+              <Link href="/explore" className="bg-white/5 border border-white/10 backdrop-blur-xl px-10 py-4 rounded-full font-bold text-lg hover:bg-white/10 transition-all duration-300">
+                Explore Projects
               </Link>
             </div>
           </motion.div>
         </div>
+
+        {/* Subtle Bottom Glow */}
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-gradient-to-t from-[#14F195]/10 to-transparent blur-[120px] -z-10 pointer-events-none" />
       </section>
 
       {/* Features Section */}

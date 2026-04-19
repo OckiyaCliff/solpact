@@ -1,36 +1,49 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
-import { Link } from "lucide-react";
-import NextLink from "next/link";
+import PillNav from "./PillNav";
 
 export function Navbar() {
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    const navItems = [
+        { label: "Home", href: "/" },
+        { label: "Explore", href: "/explore" },
+        { label: "Create", href: "/create" },
+        { label: "Verify", href: "/verify" },
+    ];
+
     return (
-        <nav className="sticky top-0 z-50 w-full glass px-6 py-4 flex items-center justify-between">
-            <div className="flex items-center gap-2">
-                <div className="w-10 h-10 bg-gradient-to-br from-[#14F195] to-[#9945FF] rounded-lg flex items-center justify-center shadow-lg transform rotate-3">
-                    <span className="font-bold text-xl text-black">S</span>
+        <div className="fixed top-0 left-0 right-0 z-50 pointer-events-none">
+            {/* The wrapper is pointer-events-none so we can click HERO items, 
+                but children (Nav/Wallet) must re-enable pointer events */}
+            <div className="max-w-7xl mx-auto px-6 py-4 flex items-start justify-between">
+                <div className="pointer-events-auto">
+                    <PillNav
+                        logo="/solpact_icon.png"
+                        logoAlt="SolPact Logo"
+                        items={navItems}
+                        baseColor="#0A0A0B"
+                        pillColor="#1A1A1C"
+                        pillTextColor="#ffffff"
+                        hoveredPillTextColor="#14F195"
+                        className="shadow-2xl shadow-black/40"
+                    />
                 </div>
-                <NextLink href="/" className="text-2xl font-bold tracking-tighter">
-                    SolPact
-                </NextLink>
-            </div>
 
-            <div className="hidden md:flex items-center gap-8">
-                <NextLink href="/explore" className="text-sm font-medium hover:text-[#14F195] transition-colors">
-                    Explore
-                </NextLink>
-                <NextLink href="/create" className="text-sm font-medium hover:text-[#14F195] transition-colors">
-                    Create
-                </NextLink>
-                <NextLink href="/verify" className="text-sm font-medium hover:text-[#14F195] transition-colors">
-                    Verifier Portal
-                </NextLink>
+                <div className="pointer-events-auto flex items-center h-[42px]">
+                    {mounted && (
+                        <div className="scale-90 origin-right">
+                            <WalletMultiButton className="!bg-[#14F195] !text-black !rounded-full !font-bold !text-sm px-6 hover:!bg-[#00FFA3] transition-all" />
+                        </div>
+                    )}
+                </div>
             </div>
-
-            <div className="flex items-center gap-4">
-                <WalletMultiButton className="!bg-[#14F195] !text-black !rounded-full !font-bold !text-sm px-6 hover:!bg-[#00FFA3] transition-all" />
-            </div>
-        </nav>
+        </div>
     );
 }

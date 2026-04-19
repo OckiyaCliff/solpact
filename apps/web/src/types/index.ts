@@ -4,7 +4,8 @@ export interface Campaign {
     hostId: string;
     title: string;
     description: string;
-    category?: string;
+    category: string;
+    projectType: string;
     targetAmountLamports: number;
     raisedAmountLamports: number;
     deadline: number;
