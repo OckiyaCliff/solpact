@@ -12,7 +12,7 @@
         "jsx": "react-jsx"
     },
     "include": [
-        "convex/**/*.ts",
+        "apps/web/convex/**/*.ts",
         "tests/**/*.ts",
         "target/types/**/*.ts"
     ],
