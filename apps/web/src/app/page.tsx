@@ -42,12 +42,6 @@ export default function Home() {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="flex flex-col items-center"
           >
-            {/* Tag/Badge */}
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 mb-8 backdrop-blur-md">
-              <span className="bg-[#14F195] text-black text-[10px] font-black px-2 py-0.5 rounded-full uppercase tracking-tighter">NEW</span>
-              <span className="text-sm font-medium text-neutral-400">Just shipped SolPact v2.0</span>
-            </div>
-
             <h1 className="text-6xl md:text-8xl font-black tracking-tighter mb-8 leading-[0.9] max-w-5xl mx-auto">
               Empowering communities <br />
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#14F195] to-[#9945FF]">

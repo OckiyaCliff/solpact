@@ -27,11 +27,23 @@ export const submitVerification = mutation({
 
 export const getVerificationQueue = query({
     handler: async (ctx) => {
-        return await ctx.db
+        const verifications = await ctx.db
             .query("verifications")
             .filter((q) => q.eq(q.field("status"), "pending"))
             .order("desc")
             .collect();
+
+        const results = [];
+        for (const verification of verifications) {
+            const campaign = await ctx.db.get(verification.campaignId);
+            if (campaign) {
+                results.push({
+                    ...verification,
+                    campaign,
+                });
+            }
+        }
+        return results;
     },
 });
 
@@ -71,5 +83,35 @@ export const getProofsByCampaign = query({
             .withIndex("by_campaign", (q) => q.eq("campaignId", args.campaignId))
             .order("desc")
             .collect();
+    },
+});
+export const getVerifierStats = query({
+    handler: async (ctx) => {
+        const pending = await ctx.db
+            .query("verifications")
+            .filter((q) => q.eq(q.field("status"), "pending"))
+            .collect();
+
+        const startOfDay = new Date().setHours(0, 0, 0, 0);
+        const verifiedToday = await ctx.db
+            .query("verifications")
+            .filter((q) =>
+                q.and(
+                    q.eq(q.field("status"), "approved"),
+                    q.gt(q.field("createdAt"), startOfDay)
+                )
+            )
+            .collect();
+
+        const activeCampaigns = await ctx.db
+            .query("campaigns")
+            .withIndex("by_state", (q) => q.eq("state", "active"))
+            .collect();
+
+        return {
+            pendingReview: pending.length,
+            verifiedToday: verifiedToday.length,
+            needsProof: activeCampaigns.length,
+        };
     },
 });
