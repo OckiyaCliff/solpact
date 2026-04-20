@@ -3,9 +3,8 @@ import path from "path";
 
 const nextConfig: NextConfig = {
   turbopack: {
-    root: path.join(__dirname, "../.."),
+    root: path.join(process.cwd(), "../../"),
   },
-  serverExternalPackages: ["convex"],
 };
 
 export default nextConfig;
