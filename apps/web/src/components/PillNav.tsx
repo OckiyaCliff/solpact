@@ -15,6 +15,7 @@ export interface PillNavProps {
     logo: string;
     logoAlt?: string;
     items: PillNavItem[];
+    rightElement?: React.ReactNode;
     className?: string;
     ease?: string;
     baseColor?: string;
@@ -29,6 +30,7 @@ const PillNav: React.FC<PillNavProps> = ({
     logo,
     logoAlt = 'Logo',
     items,
+    rightElement,
     className = '',
     ease = 'power3.easeOut',
     baseColor = '#fff',
@@ -389,6 +391,11 @@ const PillNav: React.FC<PillNavProps> = ({
                             );
                         })}
                     </ul>
+                    {rightElement && (
+                        <div className="flex items-center h-full pr-[3px] ml-1">
+                            {rightElement}
+                        </div>
+                    )}
                 </div>
 
                 <button
