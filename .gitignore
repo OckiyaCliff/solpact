@@ -3,7 +3,7 @@ node_modules/
 .npm/
 
 # Convex
-convex/_generated/
+# convex/_generated/
 .env.local
 .env.*.local
 

@@ -4,7 +4,7 @@ import { Navbar } from "@/components/Navbar";
 import { motion } from "framer-motion";
 import { ArrowRight, Shield, Zap, Heart, Plus } from "lucide-react";
 import { useQuery } from "convex/react";
-import { api } from "../../../../convex/_generated/api";
+import { api } from "@/convex/_generated/api";
 import { Campaign } from "@/types";
 import Link from "next/link";
 import DotField from "@/components/DotField";
