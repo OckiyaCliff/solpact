@@ -23,7 +23,7 @@ export default function VerifyPage() {
                 <div className="max-w-7xl mx-auto">
                     <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-6">
                         <div>
-                            <h1 className="text-5xl font-bold tracking-tighter mb-4">Verifier Portal</h1>
+                            <h1 className="text-3xl font-bold tracking-tighter mb-3">Verifier Portal</h1>
                             <p className="text-neutral-400 max-w-xl">
                                 Support the SolPact ecosystem by verifying physical project milestones.
                                 Your verification ensures funds are released safely to local communities.
@@ -56,7 +56,7 @@ export default function VerifyPage() {
                         />
                     </div>
 
-                    <h2 className="text-3xl font-bold mb-8">Verification Queue</h2>
+                    <h2 className="text-xl font-bold mb-6">Verification Queue</h2>
                     <div className="grid grid-cols-1 gap-4">
                         {verifications === undefined ? (
                             [1, 2, 3].map((i: number) => <div key={i} className="h-24 glass animate-pulse rounded-2xl" />)

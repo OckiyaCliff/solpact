@@ -39,6 +39,7 @@ export default function CreateCampaignPage() {
                 deadline: Date.now() + 30 * 24 * 60 * 60 * 1000, // 30 days from now
             });
 
+            alert("Campaign created successfully! Redirecting to Explore...");
             router.push(`/explore`);
         } catch (error) {
             console.error("Error creating campaign:", error);
@@ -53,7 +54,7 @@ export default function CreateCampaignPage() {
             <main className="flex-1 flex flex-col">
                 <Navbar />
                 <div className="flex-1 flex flex-col items-center justify-center p-6 text-center">
-                    <h1 className="text-4xl font-bold mb-6 tracking-tighter">Connect your wallet to start a campaign</h1>
+                    <h1 className="text-2xl font-bold mb-4 tracking-tighter">Connect your wallet to start a campaign</h1>
                     <p className="text-neutral-400 mb-8 max-w-md">
                         You need to be connected with a Solana wallet to create and manage your SolPact campaigns.
                     </p>
@@ -69,8 +70,8 @@ export default function CreateCampaignPage() {
 
             <section className="pt-20 pb-20 px-6">
                 <div className="max-w-3xl mx-auto">
-                    <h1 className="text-5xl font-bold tracking-tighter mb-4">Start a Campaign</h1>
-                    <p className="text-neutral-400 mb-12">Fill in the details below to launch your transparent crowdfunding project.</p>
+                    <h1 className="text-3xl font-bold tracking-tighter mb-3">Start a Campaign</h1>
+                    <p className="text-neutral-400 mb-8 text-sm">Fill in the details below to launch your transparent crowdfunding project.</p>
 
                     <form onSubmit={handleSubmit} className="space-y-8">
                         <div className="space-y-2">
@@ -158,7 +159,7 @@ export default function CreateCampaignPage() {
                         <button
                             disabled={loading}
                             type="submit"
-                            className="w-full bg-[#14F195] text-black font-bold py-5 rounded-2xl text-xl hover:bg-[#00FFA3] transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_0_20px_rgba(20,241,149,0.3)] hover:shadow-[0_0_30px_rgba(20,241,149,0.5)] transform hover:-translate-y-1 active:translate-y-0"
+                            className="w-full bg-[#14F195] text-black font-bold py-4 rounded-2xl text-base hover:bg-[#00FFA3] transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_0_20px_rgba(20,241,149,0.3)] hover:shadow-[0_0_30px_rgba(20,241,149,0.5)] transform hover:-translate-y-1 active:translate-y-0"
                         >
                             {loading ? "Creating..." : "Launch Campaign"}
                         </button>

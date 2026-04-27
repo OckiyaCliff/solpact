@@ -13,7 +13,7 @@ const CATEGORIES = ["All", "Borehole", "School", "Clinic", "App", "Course"];
 
 export default function ExplorePage() {
     const [selectedCategory, setSelectedCategory] = useState("All");
-    const campaigns = useQuery(api.campaigns.listActiveCampaigns, {
+    const campaigns = useQuery(api.campaigns.listAllCampaigns, {
         category: selectedCategory === "All" ? undefined : selectedCategory.toLowerCase(),
     });
 
@@ -23,7 +23,7 @@ export default function ExplorePage() {
 
             <section className="pt-20 pb-12 px-6">
                 <div className="max-w-7xl mx-auto">
-                    <h1 className="text-5xl font-bold tracking-tighter mb-8">Explore Campaigns</h1>
+                    <h1 className="text-3xl font-bold tracking-tighter mb-6">Explore Campaigns</h1>
 
                     <div className="flex flex-wrap gap-3 mb-12">
                         {CATEGORIES.map((cat) => (

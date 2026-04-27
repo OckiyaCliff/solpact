@@ -70,6 +70,25 @@ export const listActiveCampaigns = query({
     },
 });
 
+export const listAllCampaigns = query({
+    args: {
+        projectType: v.optional(v.string()),
+        category: v.optional(v.string()),
+    },
+    handler: async (ctx, args) => {
+        let results = await ctx.db.query("campaigns").order("desc").collect();
+
+        if (args.projectType) {
+            results = results.filter((c) => c.projectType === args.projectType);
+        }
+        if (args.category) {
+            results = results.filter((c) => c.category === args.category);
+        }
+
+        return results;
+    },
+});
+
 export const getCampaign = query({
     args: { campaignId: v.id("campaigns") },
     handler: async (ctx, args) => {

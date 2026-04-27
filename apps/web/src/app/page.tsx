@@ -42,24 +42,24 @@ export default function Home() {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="flex flex-col items-center"
           >
-            <h1 className="text-6xl md:text-8xl font-black tracking-tighter mb-8 leading-[0.9] max-w-5xl mx-auto">
+            <h1 className="text-4xl md:text-5xl font-black tracking-tighter mb-6 leading-[0.95] max-w-4xl mx-auto">
               Empowering communities <br />
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#14F195] to-[#9945FF]">
                 one pact at a time.
               </span>
             </h1>
 
-            <p className="text-xl text-neutral-400 mb-12 max-w-2xl mx-auto leading-relaxed font-medium">
+            <p className="text-base text-neutral-400 mb-10 max-w-2xl mx-auto leading-relaxed font-medium">
               A transparent, Solana-native crowdfunding platform tailored for Nigerian impact.
               Pure trust, trustless custody, and real-world results.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center gap-4">
-              <Link href="/create" className="group bg-white text-black px-10 py-4 rounded-full font-bold text-lg flex items-center gap-2 hover:bg-[#14F195] transition-all duration-300">
+              <Link href="/create" className="group bg-white text-black px-8 py-3 rounded-full font-bold text-sm flex items-center gap-2 hover:bg-[#14F195] transition-all duration-300">
                 Start a Campaign
                 <Plus className="w-5 h-5 group-hover:rotate-180 transition-transform duration-500" />
               </Link>
-              <Link href="/explore" className="bg-white/5 border border-white/10 backdrop-blur-xl px-10 py-4 rounded-full font-bold text-lg hover:bg-white/10 transition-all duration-300">
+              <Link href="/explore" className="bg-white/5 border border-white/10 backdrop-blur-xl px-8 py-3 rounded-full font-bold text-sm hover:bg-white/10 transition-all duration-300">
                 Explore Projects
               </Link>
             </div>
@@ -96,7 +96,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
           <div className="flex justify-between items-end mb-12">
             <div>
-              <h2 className="text-4xl font-bold mb-4">Featured Campaigns</h2>
+              <h2 className="text-2xl font-bold mb-3">Featured Campaigns</h2>
               <p className="text-neutral-400">Join these active projects making a difference.</p>
             </div>
             <Link href="/explore" className="text-[#14F195] font-semibold flex items-center gap-2 hover:underline">
@@ -127,7 +127,7 @@ function FeatureCard({ icon, title, description }: { icon: React.ReactNode; titl
   return (
     <div className="flex flex-col items-center text-center p-8 rounded-3xl hover:bg-white/5 transition-colors">
       <div className="mb-6 p-4 bg-white/5 rounded-2xl">{icon}</div>
-      <h3 className="text-2xl font-bold mb-4">{title}</h3>
+      <h3 className="text-lg font-bold mb-3">{title}</h3>
       <p className="text-neutral-400">{description}</p>
     </div>
   );
