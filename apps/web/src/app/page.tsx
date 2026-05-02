@@ -8,6 +8,7 @@ import { api } from "@/convex/_generated/api";
 import { Campaign } from "@/types";
 import Link from "next/link";
 import DotField from "@/components/DotField";
+import CampaignCoverImage from "@/components/CampaignCoverImage";
 
 export default function Home() {
   const campaigns = useQuery(api.campaigns.listActiveCampaigns, {});
@@ -139,7 +140,8 @@ function CampaignCard({ campaign }: { campaign: Campaign }) {
   return (
     <Link href={`/campaign/${campaign._id}`} className="block group">
       <div className="glass rounded-3xl overflow-hidden hover:border-white/20 transition-all h-full flex flex-col group-hover:bg-white/[0.05]">
-        <div className="h-48 bg-neutral-900 relative">
+        <div className="h-48 bg-neutral-900 relative overflow-hidden">
+          <CampaignCoverImage campaignId={campaign._id} title={campaign.title} />
           <div className="absolute top-4 left-4 bg-[#14F195] text-black text-[10px] font-black uppercase tracking-widest px-2 py-1 rounded">
             {campaign.category || "General"}
           </div>

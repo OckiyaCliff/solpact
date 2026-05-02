@@ -15,12 +15,17 @@ export const createCampaign = mutation({
         locationLng: v.optional(v.float64()),
         locationName: v.optional(v.string()),
         verifierId: v.optional(v.string()),
+        // New fields
+        images: v.optional(v.array(v.id("_storage"))),
+        videoUrl: v.optional(v.string()),
+        hostName: v.optional(v.string()),
+        hostEmail: v.optional(v.string()),
     },
     handler: async (ctx, args) => {
         return await ctx.db.insert("campaigns", {
             ...args,
             raisedAmountLamports: 0,
-            state: "created",
+            state: "active",
             createdAt: Date.now(),
         });
     },
@@ -66,7 +71,9 @@ export const listActiveCampaigns = query({
             q = q.filter((q) => q.eq(q.field("category"), args.category));
         }
 
-        return await q.order("desc").collect();
+        const results = await q.order("desc").collect();
+        // Filter out suspended campaigns
+        return results.filter((c) => !c.isSuspended);
     },
 });
 
@@ -77,6 +84,9 @@ export const listAllCampaigns = query({
     },
     handler: async (ctx, args) => {
         let results = await ctx.db.query("campaigns").order("desc").collect();
+
+        // Filter out suspended campaigns from public view
+        results = results.filter((c) => !c.isSuspended);
 
         if (args.projectType) {
             results = results.filter((c) => c.projectType === args.projectType);
@@ -100,7 +110,21 @@ export const getCampaign = query({
             .withIndex("by_campaign", (q) => q.eq("campaignId", args.campaignId))
             .collect();
 
-        return { ...campaign, donationCount: donations.length };
+        // Resolve image URLs
+        const imageUrls: string[] = [];
+        if (campaign.images) {
+            for (const storageId of campaign.images) {
+                const url = await ctx.storage.getUrl(storageId);
+                if (url) imageUrls.push(url);
+            }
+        }
+
+        return {
+            ...campaign,
+            donationCount: donations.length,
+            donations: donations,
+            imageUrls,
+        };
     },
 });
 
@@ -112,5 +136,37 @@ export const getMyCampaigns = query({
             .withIndex("by_host", (q) => q.eq("hostId", args.hostId))
             .order("desc")
             .collect();
+    },
+});
+
+// Generate an upload URL for Convex file storage
+export const generateUploadUrl = mutation({
+    args: {},
+    handler: async (ctx) => {
+        return await ctx.storage.generateUploadUrl();
+    },
+});
+
+// Get a signed URL for a storage file
+export const getImageUrl = query({
+    args: { storageId: v.id("_storage") },
+    handler: async (ctx, args) => {
+        return await ctx.storage.getUrl(args.storageId);
+    },
+});
+
+// Get image URLs for a campaign (for card previews)
+export const getCampaignImageUrls = query({
+    args: { campaignId: v.id("campaigns") },
+    handler: async (ctx, args) => {
+        const campaign = await ctx.db.get(args.campaignId);
+        if (!campaign || !campaign.images || campaign.images.length === 0) return [];
+
+        const urls: string[] = [];
+        for (const storageId of campaign.images) {
+            const url = await ctx.storage.getUrl(storageId);
+            if (url) urls.push(url);
+        }
+        return urls;
     },
 });

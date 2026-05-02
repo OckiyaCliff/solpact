@@ -30,6 +30,16 @@ export default defineSchema({
         onChainAddress: v.optional(v.string()), // Campaign PDA pubkey
         verifierId: v.optional(v.string()), // preferred verifier wallet
         createdAt: v.number(),
+        // New fields for rich campaigns
+        images: v.optional(v.array(v.id("_storage"))), // Convex storage IDs for uploaded images
+        videoUrl: v.optional(v.string()), // YouTube/Vimeo embed URL
+        hostName: v.optional(v.string()), // Display name of campaign creator
+        hostEmail: v.optional(v.string()), // Contact email for campaign host
+        // Admin moderation
+        isSuspended: v.optional(v.boolean()), // Admin flag to hide campaigns
+        suspendedReason: v.optional(v.string()), // Reason for suspension
+        suspendedAt: v.optional(v.number()), // Timestamp of suspension
+        suspendedBy: v.optional(v.string()), // Admin wallet who suspended
     })
         .index("by_host", ["hostId"])
         .index("by_state", ["state"])

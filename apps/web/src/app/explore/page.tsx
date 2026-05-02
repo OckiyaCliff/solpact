@@ -3,13 +3,14 @@
 import { useState } from "react";
 import { Navbar } from "@/components/Navbar";
 import { motion } from "framer-motion";
-import { Search, MapPin, Globe, ArrowRight } from "lucide-react";
+import { MapPin, Globe } from "lucide-react";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { Campaign } from "@/types";
 import Link from "next/link";
+import CampaignCoverImage from "@/components/CampaignCoverImage";
 
-const CATEGORIES = ["All", "Borehole", "School", "Clinic", "App", "Course"];
+const CATEGORIES = ["All", "Borehole", "School", "Clinic", "App", "Course", "Infrastructure", "Other"];
 
 export default function ExplorePage() {
     const [selectedCategory, setSelectedCategory] = useState("All");
@@ -21,16 +22,17 @@ export default function ExplorePage() {
         <main className="flex-1 flex flex-col">
             <Navbar />
 
-            <section className="pt-20 pb-12 px-6">
+            <section className="pt-24 pb-12 px-6">
                 <div className="max-w-7xl mx-auto">
-                    <h1 className="text-3xl font-bold tracking-tighter mb-6">Explore Campaigns</h1>
+                    <h1 className="text-3xl font-bold tracking-tighter mb-2">Explore Campaigns</h1>
+                    <p className="text-neutral-400 text-sm mb-8">Discover and support impact projects on Solana.</p>
 
                     <div className="flex flex-wrap gap-3 mb-12">
                         {CATEGORIES.map((cat) => (
                             <button
                                 key={cat}
                                 onClick={() => setSelectedCategory(cat)}
-                                className={`px-6 py-2 rounded-full font-semibold transition-all ${selectedCategory === cat
+                                className={`px-6 py-2 rounded-full font-semibold transition-all text-sm ${selectedCategory === cat
                                     ? "bg-[#14F195] text-black"
                                     : "glass hover:bg-white/10"
                                     }`}
@@ -61,11 +63,13 @@ export default function ExplorePage() {
 
 function CampaignCard({ campaign }: { campaign: Campaign }) {
     const progress = Math.min(100, (campaign.raisedAmountLamports / campaign.targetAmountLamports) * 100) || 0;
+    const daysLeft = Math.max(0, Math.ceil((campaign.deadline - Date.now()) / (1000 * 60 * 60 * 24)));
 
     return (
         <Link href={`/campaign/${campaign._id}`} className="block group">
             <div className="glass rounded-3xl overflow-hidden hover:border-white/20 transition-all h-full flex flex-col group-hover:bg-white/[0.05]">
-                <div className="h-48 bg-neutral-900 relative">
+                <div className="h-48 bg-neutral-900 relative overflow-hidden">
+                    <CampaignCoverImage campaignId={campaign._id} title={campaign.title} />
                     <div className="absolute top-4 left-4 bg-[#14F195] text-black text-[10px] font-black uppercase tracking-widest px-2 py-1 rounded">
                         {campaign.category || "General"}
                     </div>
@@ -76,9 +80,9 @@ function CampaignCard({ campaign }: { campaign: Campaign }) {
                 </div>
                 <div className="p-6 flex-1 flex flex-col">
                     <h3 className="text-xl font-bold mb-2 group-hover:text-[#14F195] transition-colors line-clamp-1">{campaign.title}</h3>
-                    <p className="text-neutral-400 text-sm mb-6 line-clamp-2 flex-1">{campaign.description}</p>
+                    <p className="text-neutral-400 text-sm mb-4 line-clamp-2 flex-1">{campaign.description}</p>
 
-                    <div className="space-y-4">
+                    <div className="space-y-3">
                         <div className="w-full bg-white/10 h-2 rounded-full overflow-hidden">
                             <motion.div
                                 initial={{ width: 0 }}
@@ -89,6 +93,10 @@ function CampaignCard({ campaign }: { campaign: Campaign }) {
                         <div className="flex justify-between text-xs font-medium">
                             <span className="text-[#14F195]">{progress.toFixed(0)}% Funded</span>
                             <span>{(campaign.targetAmountLamports / 1e9).toFixed(2)} SOL Goal</span>
+                        </div>
+                        <div className="flex justify-between text-[10px] text-neutral-500 font-bold uppercase tracking-wider">
+                            <span>{(campaign.raisedAmountLamports / 1e9).toFixed(2)} SOL raised</span>
+                            <span>{daysLeft} days left</span>
                         </div>
                     </div>
                 </div>

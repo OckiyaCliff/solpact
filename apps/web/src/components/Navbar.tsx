@@ -1,22 +1,34 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
+import { useWallet } from "@solana/wallet-adapter-react";
 import PillNav from "./PillNav";
+
+const ADMIN_WALLET = process.env.NEXT_PUBLIC_ADMIN_WALLET || "";
 
 export function Navbar() {
     const [mounted, setMounted] = useState(false);
+    const { publicKey, connected } = useWallet();
 
     useEffect(() => {
         setMounted(true);
     }, []);
 
-    const navItems = [
-        { label: "Home", href: "/" },
-        { label: "Explore", href: "/explore" },
-        { label: "Create", href: "/create" },
-        { label: "Verify", href: "/verify" },
-    ];
+    const isAdmin = connected && publicKey?.toString() === ADMIN_WALLET;
+
+    const navItems = useMemo(() => {
+        const items = [
+            { label: "Home", href: "/" },
+            { label: "Explore", href: "/explore" },
+            { label: "Create", href: "/create" },
+            { label: "Verify", href: "/verify" },
+        ];
+        if (isAdmin) {
+            items.push({ label: "Admin", href: "/admin" });
+        }
+        return items;
+    }, [isAdmin]);
 
     return (
         <div className="fixed top-0 left-0 right-0 z-50 pointer-events-none">
